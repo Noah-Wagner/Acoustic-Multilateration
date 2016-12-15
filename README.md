@@ -6,5 +6,7 @@ Design Team 19
 Michael Seredich
 
 Eric Hicks
+
 Nate Raymondi
+
 Noah Wagner
