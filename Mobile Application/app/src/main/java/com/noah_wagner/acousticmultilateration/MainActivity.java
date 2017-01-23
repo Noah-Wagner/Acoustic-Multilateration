@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     public void updateLocation(View view) {
+        LocationFetch.getCoords();
         Snackbar.make(view, "Location up to date", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
@@ -82,6 +83,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         CameraUpdate zoom = CameraUpdateFactory.zoomTo(15);
         googleMap.moveCamera(cameraUpdate);
         googleMap.animateCamera(zoom);
-        
+
     }
 }
