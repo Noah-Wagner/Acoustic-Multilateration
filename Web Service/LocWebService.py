@@ -14,11 +14,7 @@ def hello_world():
 def update_loc():
     x = request.args.get('x')
     y = request.args.get('y')
-    if (x == None and y == None):
-        return 'false'
-    else:
-        return CoordHandler.CoordHandler.update_loc(x, y)
-
+    return CoordHandler.CoordHandler.update_loc(x, y)
 
 @app.route('/getloc/')
 def get_loc():
@@ -26,6 +22,11 @@ def get_loc():
     y = json.jsonify(x)
     return y
 
+@app.route('/updateabsloc/')
+def update_abs_loc():
+    x = request.args.get('x')
+    y = request.args.get('y')
+    return CoordHandler.CoordHandler.update_abs_loc(x, y)
 
 if __name__ == '__main__':
     app.run()
