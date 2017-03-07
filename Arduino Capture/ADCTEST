@@ -1,4 +1,45 @@
-setup() 
+#include <Arduino.h>
+
+#define SIZE 800
+//#define inPin 0
+const int ANALOG_PIN = A0;
+
+unsigned int storedValue[SIZE];
+unsigned int storedValue2[SIZE];
+
+unsigned long time1;
+unsigned long time2;
+
+void setup() 
+{  
+  Serial.begin(9600);
+  analogReadResolution(12);
+//  REG_ADC_MR = (REG_ADC_MR & 0xFFF0FFFF) | 0x00020000;
+//  time1 = micros();
+  for (int n=0; n<SIZE; n++)
+ {
+  storedValue[n] = analogRead(ANALOG_PIN);
+  storedValue2[n] = convertToVoltage(storedValue[n]);
+ }
+
+ for (int m = 0; m<SIZE; m++)
+ {
+    //Serial.println(storedValue[m]);
+    Serial.println(storedValue2[m]);
+ }
+
+
+// time2 = micros();
+//  Serial.println(time2 - time1);
+}
+
+float convertToVoltage(int val) {
+  return val*3.3/4095;
+}
+
+
+
+void loop(){}setup() 
 {  
   Serial.begin(9600);
   analogReadResolution(12);
