@@ -2,7 +2,9 @@ import numpy
 
 
 class MultiSystem:
+    DIMENSION = 3
     SOUND_SPEED = 340.29
+    _cached_result = None
     _sensor_coords = []
     _arrival_times = []
 
@@ -10,13 +12,32 @@ class MultiSystem:
         self._sensor_coords = tup
         self._arrival_times = [None] * len(tup)
 
-    def addTime(self, time, sensor_id):
-        self._arrival_times[sensor_id] = time
+    def add_times(self, times):
+        if len(times) < MultiSystem.DIMENSION + 2:
+            raise ValueError("Not enough arrival times")
 
-    def perform_multilateration(self):
-        return self.__perform_multilateration_linear()
+        self._cached_result = None
+        self._arrival_times = times
+        # TODO: Probably should have some validation here lol
 
-    def __perform_multilateration_linear(self):
+    def get_sensor_loc(self):
+        return self._sensor_coords
+
+    # Memoization :D
+    def get_source_pos(self):
+        if self._cached_result is not None:
+            return self._cached_result
+        return self._perform_multilateration()
+
+    def _perform_multilateration(self):
+        return self._perform_multilateration_linear()
+
+    def _perform_multilateration_linear(self):
+
+        if len(self._sensor_coords) < 5:
+            raise ValueError("Not enough sensors")
+        if len(self._arrival_times) < 5:
+            raise ValueError()
 
         temp_time = self._arrival_times[0]
         for i in range(0, len(self._sensor_coords)):
@@ -50,5 +71,5 @@ class MultiSystem:
 
             a.append([A[i - 2], B[i - 2], C[i - 2]])
             b.append(-D[i - 2])
-        x = numpy.linalg.lstsq(a, b)
-        return x
+        self._cached_result = numpy.linalg.lstsq(a, b)
+        return self._cached_result
