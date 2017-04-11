@@ -3,14 +3,17 @@
 <head>
 
 
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.18.1/vis.min.css"></script>
@@ -18,25 +21,69 @@
 
     <script type="text/javascript" src="GraphStuff.js"></script>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Acoustic Multilateration</title>
 </head>
 <body>
 <center>
-<div id="visualization"></div>
+    <div id="visualization"></div>
 
-<h1>Shooter Location System (DEBUG MODE)</h1>
-<button id="multiLateration">Multilateration</button>
-<button id="loadSensors">Load Sensors</button>
-<button id="defaultSensors">Default Sensors</button>
-
+    <h1>Shooter Location System (DEBUG MODE)</h1>
+    <button id="multiLateration">Multilateration</button>
+    <button id="loadSensors">Load Sensors</button>
+    <button id="defaultSensors">Default Sensors</button>
 
 
     <div id="mygraph"></div>
-Sensor 1:
 
-X: <input type="number" id="0_x"/>
-    Y: <input type="number" id="0_y"/>
-    Z: <input type="number" id="0_z"/>
+    <button id ="testXD">Test XD</button>
+    <form id="testlol">
+        <input name='user' placeholder='user'><br>
+        <input name='password' type='password' placeholder='password'><br>
+    </form>
+
+    <button id="submitSensors">Submit Sensor Positions</button>
+
+    <form action="/" id="sensorPos">
+
+        Sensor 1:
+
+        X: <input type="number" disabled name="0_x" value="0"/>
+        Y: <input type="number" disabled name="0_y" value="0"/>
+        Z: <input type="number" disabled name="0_z" value="0"/>
+
+        <div></div>
+
+        Sensor 2:
+
+        X: <input type="number" name="1_x"/>
+        Y: <input type="number" name="1_y"/>
+        Z: <input type="number" name="1_z"/>
+
+        <div></div>
+
+        Sensor 3:
+
+        X: <input type="number" name="2_x"/>
+        Y: <input type="number" name="2_y"/>
+        Z: <input type="number" name="2_z"/>
+
+        <div></div>
+
+        Sensor 4:
+
+        X: <input type="number" name="3_x"/>
+        Y: <input type="number" name="3_y"/>
+        Z: <input type="number" name="3_z"/>
+
+        <div></div>
+
+        Sensor 5:
+
+        X: <input type="number" name="4_x"/>
+        Y: <input type="number" name="4_y"/>
+        Z: <input type="number" name="4_z"/>
+
+    </form>
 
 </center>
 </body>

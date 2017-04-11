@@ -6,6 +6,8 @@
 
 var graph = null;
 var data = null;
+// var SERVER_IP = "https://senior-design-project-155422.appspot.com/"
+var SERVER_IP = "http://127.0.0.1:5000/"
 
 $(document).ready(function() {
 
@@ -15,7 +17,7 @@ $(document).ready(function() {
     $("#multiLateration").click(function() {
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/getsourceloc/?arrivaltimes=.01881666883, .0152187926, .016691024503997, .04124619838260953, .01688116904970476",
+            url: SERVER_IP + "getsourceloc/?arrivaltimes=.01881666883, .0152187926, .016691024503997, .04124619838260953, .01688116904970476",
             success: function(data) {
                 addSourceLoc(JSON.parse(data));
             },
@@ -27,7 +29,7 @@ $(document).ready(function() {
     $("#loadSensors").click(function() {
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:5000/getsensorloc/",
+            url: SERVER_IP + "getsensorloc/",
             success: function(data) {
                 console.log(data);
 
@@ -44,7 +46,7 @@ $(document).ready(function() {
         console.log("lol");
         $.ajax({
             type: "POST",
-            url: "http://127.0.0.1:5000/updatesensorloc/",
+            url: SERVER_IP + "updatesensorloc/",
             data: "[[0,0,0],[-2.1,3.1,10],[-1,-3.1,4.5],[3,-5,-6],[5,3,2]]",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -58,7 +60,30 @@ $(document).ready(function() {
             }
 
         })
-    })
+    });
+    $("#testXD").click(function() {
+        console.log("lol");
+        console.log(JSON.stringify($('#testlol').serializeArray()));
+    });
+    $("#submitSensors").click(function() {
+        $.ajax({
+            type: "POST",
+            url: SERVER_IP + "updatesensorloc/",
+            data: $('#sensorPos').serialize(),
+            success: function(data) {
+                console.log(data);
+                console.log(JSON.stringify($('#sensorPos').serializeArray()));
+
+                // updateSensorLocations(JSON.parse(data));
+
+            },
+            error: function(data) {
+                console.log("failure");
+                console.log($('#sensorPos').serializeArray());
+                console.log(data);
+            }
+        });
+    });
 });
 
 function updateSensorLocations(data) {
@@ -67,7 +92,6 @@ function updateSensorLocations(data) {
 
 
 function addSourceLoc(parse) {
-
 
     data.add({x: parse[0], y: parse[1], z: parse[2], style:4});
 
@@ -106,8 +130,9 @@ function addSensorLocations(d) {
     // create th
 
     // data = new vis.DataSet();
-    for (var i = 0; i < 5; i++) {
-        data.add({x: d[i][0], y: d[i][1], z: d[i][2], style:3});
+    for (var i = 1; i < 4; i++) {
+        data.add({x: d[i + "_x"], y: d[i + "_y"], z: d[i + "_z"], style:3});
+
     }
 
 
