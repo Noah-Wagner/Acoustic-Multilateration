@@ -1,5 +1,9 @@
+import requests
 import serial
 import sys
+
+times = [] * 5
+count = [0]
 
 def serial_ports():
 
@@ -20,7 +24,26 @@ def serial_ports():
     return result
 
 
+
+
+def parser(message):
+    count[0] += 1
+    sensor_id = int(message[7])
+    times[int(sensor_id)] = int(message[8:len(message)])
+
+    if count[0] >= 5:
+        url = "http://senior-design-project-155422.appspot.com/getsourceloc/?arrivaltimes="
+        for i in range(0, 4):
+            url += times[i]
+            url += ", "
+        url += times[4]
+        requests.get(url)
+    print("XD HERE XD")
+
 if __name__ == '__main__':
+
+    # parser("3 48791546546546841616165416165465465464651651616164164714871")
+
     print("Available ports:")
     available_ports = serial_ports()
     print(available_ports)
@@ -30,7 +53,8 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print(s.read().decode("UTF-8"))
+            print(s.readline().decode("UTF-8"))
+            parser(s.readLine().decode("UTF-8"))
         except KeyboardInterrupt:
             break
 
