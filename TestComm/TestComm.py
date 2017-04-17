@@ -2,8 +2,10 @@ import requests
 import serial
 import sys
 
-times = [] * 5
-count = [0]
+# times = [] * 5
+times = [-1, -1, -1, -1, -1]
+time_out_flag = True
+# count = [0]
 
 def serial_ports():
 
@@ -27,22 +29,37 @@ def serial_ports():
 
 
 def parser(message):
-    count[0] += 1
-    sensor_id = int(message[7])
-    times[int(sensor_id)] = int(message[8:len(message)])
 
-    if count[0] >= 5:
+    sensor_id = int(message[6]) - 1
+
+    if times[sensor_id] == -1:
+        times[sensor_id] = float(message[7:len(message)])*10**(-6)
+
+    print("Sensor " + str(sensor_id + 1) + ": " + str(times[sensor_id]))
+
+    count = 0
+    for thing in times:
+        if thing > -1:
+            count += 1
+
+    if count >= 5:
         url = "http://senior-design-project-155422.appspot.com/getsourceloc/?arrivaltimes="
         for i in range(0, 4):
-            url += times[i]
+            url += str(times[i])
             url += ", "
-        url += times[4]
-        requests.get(url)
-    print("XD HERE XD")
+        url += str(times[4])
+        print(url)
+        x= requests.get(url)
+        print(x.content)
+
 
 if __name__ == '__main__':
 
-    # parser("3 48791546546546841616165416165465465464651651616164164714871")
+    # parser("Node: 1 547991e-6")
+    # parser("Node: 2 554019e-6")
+    # parser("Node: 3 556358e-6")
+    # parser("Node: 4 563371e-6")
+    # parser("Node: 5 569160e-6")
 
     print("Available ports:")
     available_ports = serial_ports()
@@ -53,8 +70,14 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print(s.readline().decode("UTF-8"))
-            parser(s.readLine().decode("UTF-8"))
+            stringlol = s.readline().decode("UTF-8")
+
+            if stringlol[0] != "H":
+                print(stringlol)
+                stringlol = stringlol[0:len(stringlol) - len("\r\n")]
+                # print(stringlol)
+
+                parser(stringlol)
         except KeyboardInterrupt:
             break
 
